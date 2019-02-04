@@ -5,12 +5,30 @@ import cv2
 import numpy as np
 from keras.utils.np_utils import to_categorical
 from keras import optimizers
+from keras.preprocessing.image import ImageDataGenerator
+
 
 img_height = 128
 img_width = 128
 img_channels = 3
 
 cardinality = 32
+
+train_datagen = ImageDataGenerator(rescale=1./255)
+
+valid_datagen = ImageDataGenerator(rescale=1./255)
+
+train_generator = train_datagen.flow_from_directory(
+    directory=r"/home/anirudh/Desktop/Major Project/test_images",
+    target_size=(128, 128),
+    color_mode="rgb",
+    batch_size=32,
+    class_mode="categorical",
+    shuffle=True,
+    seed=42
+)
+
+STEP_SIZE_TRAIN=train_generator.n//train_generator.batch_size
 
 def residual_network(x):
     """
@@ -106,41 +124,11 @@ def residual_network(x):
         x = residual_block(x, 1024, 2048, _strides=strides)
 
     x = layers.GlobalAveragePooling2D()(x)
-    x = layers.Dense(8,activation='softmax')(x)# always make sure to change number of classes depending on problem
+    x = layers.Dense(150,activation='softmax')(x)# always make sure to change number of classes depending on problem
 
     return x
 
-images=[]
-categories=[]
-test_images=[]
-test_categories=[]
-with open('labels.txt','r') as ins:
-    for line in ins:
-        path,category=line.split(' ')
-        img=cv2.imread(path)
-        img=img[:,:,::-1]
-        images.append(img)
-        categories.append(category)
-        #print(category)
 
-with open('labels.txt','r') as ins:
-    for line in ins:
-        path,category=line.split(' ')
-        img=cv2.imread(path)
-        img=img[:,:,::-1]
-        test_images.append(img)
-        test_categories.append(category)
-
-image=np.array(images,dtype='uint32')
-
-#print(image.shape)
-image=image/255.0
-#print(image)
-
-categories=to_categorical(categories,8)
-
-test_image=np.array(test_images,dtype='uint32')
-test_image=test_image/255.0
 
 #test_categories=to_categorical(test_categories,3)
 
@@ -156,7 +144,7 @@ sgd=optimizers.SGD(lr=0.01, momentum=0.9, decay=0.001, nesterov=False)
 
 model.compile(optimizer=sgd, loss='categorical_crossentropy', metrics=['accuracy'])
 
-model.fit(image,categories,epochs = 5,batch_size = 32)
+history=model.fit_generator(generator=train_generator,steps_per_epoch=STEP_SIZE_TRAIN,epochs=8)
 
 #preds = model.evaluate(test_image,test_categories)
 
