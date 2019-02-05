@@ -5,7 +5,7 @@ All experiments are performed without GPU acceleration. I have optimized my code
 All the metrics for each of the algorithms will be added once I work on them.
 
 Algorithms used:
-1. ResNeXt
+1. ResNeXt- 150 classes,8 epochs,loss=0.2705, training_accuracy=0.9296
 2. VGG16
 3. Squeeze and Excitation Net
 4. Inception v3
