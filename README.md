@@ -6,7 +6,7 @@ All the metrics for each of the algorithms will be added once I work on them.
 
 Algorithms used:
 1. ResNeXt- 150 classes,8 epochs,loss=0.2705, training_accuracy=0.9296
-2. VGG16
+2. VGG16- 25 classes, 5 epochs, loss=2.4551, training_accuracy=0.2163(also encountered a memory allocation problem)
 3. Squeeze and Excitation Net
 4. Inception v3
-5. AlexNet
+5. AlexNet- 225 classes,5 epochs, loss=2.4608,training_accuracy=0.2295
