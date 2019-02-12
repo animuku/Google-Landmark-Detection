@@ -8,5 +8,5 @@ Algorithms used:
 1. ResNeXt- 25 classes,5 epochs,loss=1.7205, training_accuracy=0.8182
 2. VGG16- 25 classes, 5 epochs, loss=2.4551, training_accuracy=0.2163(also encountered a memory allocation problem)
 3. Squeeze and Excitation Net- 25 classes, 5 epochs, loss=0.1822, training_accuracy=0.9408
-4. Inception v3
-5. AlexNet- 25 classes,5 epochs, loss=2.4608,training_accuracy=0.2295
+4. Inception v3- 25 classes, 5 epochs, loss=0.1822, training_accuracy=0.9408
+5. AlexNet- 25 classes,5 epochs, loss=1.1849,training_accuracy=0.6793
